@@ -12,7 +12,7 @@ class MarketDataEngineClient extends EventEmitter {
         super()
     }
 
-    public connect = () => {
+    public connect = (): void => {
         const port = 8080;
         const url = `ws://localhost:${port}`;
         this.websocketClient = new WebSocket(url);
@@ -24,7 +24,10 @@ class MarketDataEngineClient extends EventEmitter {
             ;
     }
 
-    public subscribe = (symbol: string) => {
+    public disconnect = (): void => {
+    }
+
+    public subscribe = (symbol: string): void => {
         const request = {
             clientId: 'market-data-engine-client-1',
             action: 'subscribe',
@@ -33,18 +36,28 @@ class MarketDataEngineClient extends EventEmitter {
         this.websocketClient?.send(JSON.stringify(request));
     }
 
-    private onWebSocketOpened = () => {
+    public unsubscribe = (symbol: string): void => {
+        const request = {
+            clientId: 'market-data-engine-client-1',
+            action: 'unsubscribe',
+            symbol: symbol 
+        }
+        this.websocketClient?.send(JSON.stringify(request));
+    }
+
+    private onWebSocketOpened = (): void => {
         this.emit('connected');
     }
 
-    private onWebSocketClosed = () => {
+    private onWebSocketClosed = (): void => {
     }
 
-    private onWebSocketError = (error: Error) => {
+    private onWebSocketError = (error: Error): void => {
     }
 
-    private onWebSocketMessageReceived = (data: RawData) => {
+    private onWebSocketMessageReceived = (data: RawData): void => {
     }
 }
+
 
 export default MarketDataEngineClient;
