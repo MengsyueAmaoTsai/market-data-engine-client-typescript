@@ -1,0 +1,14 @@
+{
+  "name": "market-data-engine-client-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "",
+    "build": "tsc",
+    "publish:build": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
