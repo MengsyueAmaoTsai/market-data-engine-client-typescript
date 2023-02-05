@@ -1,10 +1,15 @@
+import EventEmitter from "events";
 import { RawData, WebSocket } from "ws";
 
+interface MarketDataEngineClient {
+    on(event: 'connected', listener: () => void): this;
+}
 
-class MarketDataEngineClient {
+class MarketDataEngineClient extends EventEmitter {
     private websocketClient?: WebSocket;
 
     constructor() {
+        super()
     }
 
     public connect = () => {
@@ -19,7 +24,17 @@ class MarketDataEngineClient {
             ;
     }
 
+    public subscribe = (symbol: string) => {
+        const request = {
+            clientId: 'market-data-engine-client-1',
+            action: 'subscribe',
+            symbol: symbol,
+        }
+        this.websocketClient?.send(JSON.stringify(request));
+    }
+
     private onWebSocketOpened = () => {
+        this.emit('connected');
     }
 
     private onWebSocketClosed = () => {
