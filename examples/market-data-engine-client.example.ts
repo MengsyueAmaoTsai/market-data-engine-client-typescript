@@ -2,7 +2,7 @@
 
 import MarketDataEngineClient from "../market-data-engine-client";
 
-const symbols = ['TX-1', 'NQ-1', '2330', 'BTCUSDT', 'USDJPY', 'XTIUSD'];
+const symbols = ['TX-1', 'NQ-1'];
 
 const client = new MarketDataEngineClient();
 
